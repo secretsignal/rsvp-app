@@ -1,0 +1,134 @@
+FORMAT: 1A
+HOST: http://mysterybash.apiblueprint.org/
+
+# MysteryBash API spec
+
+API should provide access to Event Resources
+
+## Data Structures
+
+### Event (object)
+- id: 42 (number)
+- name: ComicCON (string)
+- subdomain: comiccon (string)
+- rsvps (array[RSVP])
+- rsvp_questions (array)
+    - (object)
+        - id: firstName (string)
+        - type: text (string)
+        - required: true (boolean)
+        - label: First Name (string)
+    - (object)
+        - id: LastName (string)
+        - type: text (string)
+        - required: true (boolean)
+        - label: Last Name (string)
+    - (object)
+        - id: email (string)
+        - type: email (string)
+        - required: true (boolean)
+        - label: Email Address (string)
+    - (object)
+        - id: mealPreference (string)
+        - type: dropdown (string)
+        - required: true (boolean)
+        - label: Meal Preference (string)
+        - options: chicken, beef, vegetarian (array)
+- data (object)
+    - title: ComicCon (string) 
+    - description: Lorem ipsum dolor sit amet! (string)
+    - location (object)
+        - address1: 123 Main St (string),
+        - address2 (string),
+        - province: Anytown (string),
+        - region:   AnyState (string),
+        - zipcode:  00000 (string),
+        - country:  USA (string)
+    - contact (object)
+        - email: `support@example` (string)
+        - phone: `+1 (555) 555-5555` (string)
+- widgets (object)
+    - contact (object)
+    - gallary (object)
+    - map (object)
+    - about (object)
+        
+
+### Admin(object)
++ id: `1` (number)
++ email:`admin@example` (string)
++ password: `secret` (string)
++ roles: admin (array)
+
+### Bouncer(object)
++ id: 2 (number)
++ email:`bouncer@example` (string)
++ password: `secret` (string)
++ roles: bouncer (array)
+
+### RSVP (object)
+- id: 7 (number)
+- details (object)
+    - first_name: Jane (string)
+    - last_name: Smith (string)
+    - email: `smiths@example.com` (string)
+    - meal_preference: vegetarian (string)
+
+# Group Events
+- An Event shall have many RSVPs.
+- An Event shall have one  EventPage
+- An Event shall have one  GuestList
+
+## Events Collection [/events]
+### Return All Events [GET]
++ Response 200 (application/json)
+    + Attributes (array[Event])
+
+### Create an Event [POST]
++ Response 201 (application/json)
+    + Attributes (Event)
+
+## Event Object [/events/{id}]
++ Parameters
+    + id (integer)
+
+### Return an Event [GET]
++ Response 200 (application/json)
+    + Attributes (Event)
++ Response 404 (application/json)
+
+### Delete an Event [DELETE]
++ Response 201
+
+# Group RSVPs
+An RSVP represents a confirmed person, or persons who will be attending an event.
+This may have details requested by the Event such as "Will you be bringing a plus one?", "Chicken or Fish", etc.
+
+## RSVPs Collection [/events/{id}/rvsps]
+
++ Parameters
+    + id (integer) - Event ID
+
+### Create a RSVP for an Event [POST]
++ Response 201 (application/json)
+    + Attributes (RSVP)
+
+### Retrieve All RSVPs attending an Event [GET]
++ Response 200 (application/json)
+    + Attributes (array[RSVP,RSVP,RSVP,RSVP])
+    
+## RSVP [/events/{event_id}/rsvps/{id}]
+
++ Parameters
+    + event_id (number, required) - ID of the Event in question
+        + Default `42`
+    + id (number, required) - ID of RSVP in question
+
+### Retrieve an RSVP [GET]
++ Response 200 (application/json)
+    + Attributes (RSVP)
++ Response 403
++ Response 404
+
+### Delete a RSVP [DELETE]
++ Response 201
