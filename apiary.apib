@@ -11,7 +11,7 @@ API should provide access to Event Resources
 - id: 42 (number)
 - name: ComicCON (string)
 - subdomain: comiccon (string)
-- rsvps (array[RSVP])
+- rsvps: array[RSVP] (array)
 - rsvp_questions (array)
     - (object)
         - id: firstName (string)
@@ -52,7 +52,6 @@ API should provide access to Event Resources
     - gallary (object)
     - map (object)
     - about (object)
-        
 
 ### Admin(object)
 + id: `1` (number)
@@ -115,7 +114,7 @@ This may have details requested by the Event such as "Will you be bringing a plu
 
 ### Retrieve All RSVPs attending an Event [GET]
 + Response 200 (application/json)
-    + Attributes (array[RSVP,RSVP,RSVP,RSVP])
+    + Attributes (array[RSVP])
     
 ## RSVP [/events/{event_id}/rsvps/{id}]
 
