@@ -6,12 +6,27 @@ HOST: http://mysterybash.apiblueprint.org/
 API should provide access to Event Resources
 
 ## Data Structures
+### RSVP (object)
+- id: 7 (number)
+- details (object)
+    - first_name: Jane (string)
+    - last_name: Smith (string)
+    - email: `smiths@example.com` (string)
+    - meal_preference: vegetarian (string)
 
+
+### EventCollection (object)
+- id: 42 (number)
+- name: ComicCON (string)
+- subdomain: comiccon (string)
+
+    
 ### Event (object)
 - id: 42 (number)
 - name: ComicCON (string)
 - subdomain: comiccon (string)
-- rsvps: array[RSVP] (array)
+- rsvps (array)
+    - (RSVP)
 - rsvp_questions (array)
     - (object)
         - id: firstName (string)
@@ -65,13 +80,7 @@ API should provide access to Event Resources
 + password: `secret` (string)
 + roles: bouncer (array)
 
-### RSVP (object)
-- id: 7 (number)
-- details (object)
-    - first_name: Jane (string)
-    - last_name: Smith (string)
-    - email: `smiths@example.com` (string)
-    - meal_preference: vegetarian (string)
+
 
 # Group Events
 - An Event shall have many RSVPs.
@@ -81,7 +90,7 @@ API should provide access to Event Resources
 ## Events Collection [/events]
 ### Return All Events [GET]
 + Response 200 (application/json)
-    + Attributes (array[Event])
+    + Attributes (array[EventCollection])
 
 ### Create an Event [POST]
 + Response 201 (application/json)
